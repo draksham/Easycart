@@ -31,7 +31,7 @@ export const authUser = (fields, role, mode) => async (dispatch) => {
 
   try {
     const result = await axios.post(
-      `http://localhost:5000/${role}${mode}`,
+      `${import.meta.env.VITE_BASE_URL}/${role}${mode}`,
       fields,
       {
         headers: { "Content-Type": "application/json" },
@@ -52,7 +52,7 @@ export const addStuff = (address, fields) => async (dispatch) => {
 
   try {
     const result = await axios.post(
-      `http://localhost:5000/${address}`,
+      `${import.meta.env.VITE_BASE_URL}/${address}`,
       fields,
       {
         headers: { "Content-Type": "application/json" },
@@ -72,7 +72,7 @@ export const addStuff = (address, fields) => async (dispatch) => {
 export const updateStuff = (fields, id, address) => async (dispatch) => {
   try {
     const result = await axios.put(
-      `http://localhost:5000/${address}/${id}`,
+      `${import.meta.env.VITE_BASE_URL}/${address}/${id}`,
       fields,
       {
         headers: { "Content-Type": "application/json" },
@@ -92,7 +92,9 @@ export const deleteStuff = (id, address) => async (dispatch) => {
   dispatch(getRequest());
 
   try {
-    const result = await axios.delete(`http://localhost:5000/${address}/${id}`);
+    const result = await axios.delete(
+      `${import.meta.env.VITE_BASE_URL}/${address}/${id}`
+    );
     if (result.data.message) {
       dispatch(getFailed(result.data.message));
     } else {
@@ -110,9 +112,13 @@ export const updateCustomer = (fields, id) => async (dispatch) => {
   delete newFields.token;
 
   try {
-    await axios.put(`http://localhost:5000/CustomerUpdate/${id}`, newFields, {
-      headers: { "Content-Type": "application/json" },
-    });
+    await axios.put(
+      `${import.meta.env.VITE_BASE_URL}/CustomerUpdate/${id}`,
+      newFields,
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
 
     dispatch(stuffUpdated());
   } catch (error) {
@@ -125,7 +131,7 @@ export const getProductsbySeller = (id) => async (dispatch) => {
 
   try {
     const result = await axios.get(
-      `http://localhost:5000/getSellerProducts/${id}`
+      `${import.meta.env.VITE_BASE_URL}/getSellerProducts/${id}`
     );
     if (result.data.message) {
       dispatch(getSellerProductsFailed(result.data.message));
@@ -141,7 +147,9 @@ export const getProducts = () => async (dispatch) => {
   dispatch(getRequest());
 
   try {
-    const result = await axios.get(`http://localhost:5000/getProducts`);
+    const result = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}/getProducts`
+    );
     if (result.data.message) {
       dispatch(getProductsFailed(result.data.message));
     } else {
@@ -157,7 +165,7 @@ export const getProductDetails = (id) => async (dispatch) => {
 
   try {
     const result = await axios.get(
-      `http://localhost:5000/getProductDetail/${id}`
+      `${import.meta.env.VITE_BASE_URL}/getProductDetail/${id}`
     );
     if (result.data.message) {
       dispatch(getProductDetailsFailed(result.data.message));
@@ -173,7 +181,9 @@ export const getCustomers = (id, address) => async (dispatch) => {
   dispatch(getRequest());
 
   try {
-    const result = await axios.get(`http://localhost:5000/${address}/${id}`);
+    const result = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}/${address}/${id}`
+    );
     if (result.data.message) {
       dispatch(getCustomersListFailed(result.data.message));
     } else {
@@ -187,7 +197,9 @@ export const getCustomers = (id, address) => async (dispatch) => {
 export const getSpecificProducts = (id, address) => async (dispatch) => {
   dispatch(getRequest());
   try {
-    const result = await axios.get(`http://localhost:5000/${address}/${id}`);
+    const result = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}/${address}/${id}`
+    );
     if (result.data.message) {
       dispatch(getSpecificProductsFailed(result.data.message));
     } else {
@@ -202,7 +214,9 @@ export const getSearchedProducts = (address, key) => async (dispatch) => {
   dispatch(getRequest());
 
   try {
-    const result = await axios.get(`http://localhost:5000/${address}/${key}`);
+    const result = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}/${address}/${key}`
+    );
     if (result.data.message) {
       dispatch(getSearchFailed(result.data.message));
     } else {
